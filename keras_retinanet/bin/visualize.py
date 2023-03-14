@@ -117,6 +117,8 @@ def main(args=None):
         os.makedirs(args.save_path+'input/')
     if not os.path.exists(args.save_path+args.layer+'/output/'):
         os.makedirs(args.save_path+args.layer+'/output/')
+    if not os.path.exists(args.save_path + args.layer + '/output_label/'):
+        os.makedirs(args.save_path + args.layer + '/output_label/')
 
     # optionally load config parameters
     if args.config:
@@ -169,6 +171,7 @@ def main(args=None):
 
             label = KImage.array_to_img(label)
             label = np.asarray(label)
+            cv2.imwrite(args.save_path + layer_name + '/output_label/' + str(image_index) + '_' + str(layer_name) + '_' + str(index) + '.png', label)
 
             heatmap_img = cv2.applyColorMap(label, cv2.COLORMAP_JET)
             cv2.imwrite(args.save_path +layer_name+'/output/'+str(image_index)+'_'+str(layer_name)+'_'+str(index)+'.png', heatmap_img)
